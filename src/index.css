@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --canvas: 247 245 240;
+    --surface: 255 255 255;
+    --sunken: 237 234 226;
+    --ink: 23 22 19;
+    --muted: 107 103 94;
+    --line: 226 222 212;
+    --accent: 200 240 80;
+    --on-accent: 23 22 19;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --canvas: 14 14 12;
+      --surface: 24 24 21;
+      --sunken: 34 33 29;
+      --ink: 242 240 234;
+      --muted: 158 154 144;
+      --line: 46 45 40;
+      --accent: 200 240 80;
+      --on-accent: 23 22 19;
+      color-scheme: dark;
+    }
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent text-on-accent;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-muted;
+  }
+
+  .btn {
+    @apply inline-flex h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 text-sm font-medium transition duration-200
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-canvas
+      disabled:pointer-events-none disabled:opacity-40;
+  }
+  .btn-primary {
+    @apply bg-ink text-canvas hover:bg-ink/85;
+  }
+  .btn-accent {
+    @apply bg-accent text-on-accent hover:brightness-95;
+  }
+  .btn-ghost {
+    @apply border border-line bg-surface/60 text-ink hover:bg-sunken;
+  }
+
+  .input {
+    @apply h-11 w-full rounded-xl border border-line bg-surface px-4 text-sm text-ink transition placeholder:text-muted/70
+      focus:border-transparent focus:outline-none focus:ring-2 focus:ring-accent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
