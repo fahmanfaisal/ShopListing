@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { CloseIcon } from "./Icons";
 
-const Modal = ({ open, onClose, label, variant = "center", children }) => {
+const Modal = ({ open, onClose, label, variant = "center", leaving = false, children }) => {
   const panelRef = useRef(null);
 
   useEffect(() => {
@@ -25,21 +25,30 @@ const Modal = ({ open, onClose, label, variant = "center", children }) => {
   if (!open) return null;
 
   const isDrawer = variant === "drawer";
+  const enter = isDrawer ? "animate-slide-in" : "animate-scale-in";
+
+  const handleAnimationEnd = (event) => {
+    if (leaving && event.target === event.currentTarget) onClose();
+  };
 
   return createPortal(
     <div className={`fixed inset-0 z-50 flex ${isDrawer ? "justify-end" : "items-center justify-center p-4 sm:p-6"}`}>
-      <div className="absolute inset-0 animate-fade-in bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className={`absolute inset-0 bg-black/40 backdrop-blur-sm ${leaving ? "animate-fade-out" : "animate-fade-in"}`}
+        onClick={onClose}
+      />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        className={
+        onAnimationEnd={handleAnimationEnd}
+        className={`${leaving ? "pointer-events-none animate-scale-out" : enter} ${
           isDrawer
-            ? "relative flex h-full w-full max-w-md animate-slide-in flex-col bg-surface shadow-2xl outline-none"
-            : "relative max-h-[90vh] w-full max-w-4xl animate-scale-in overflow-y-auto rounded-3xl bg-surface shadow-2xl outline-none"
-        }
+            ? "relative flex h-full w-full max-w-md flex-col bg-surface shadow-2xl outline-none"
+            : "relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl bg-surface shadow-2xl outline-none"
+        }`}
       >
         {children}
       </div>

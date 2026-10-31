@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProduct } from "../lib/api";
 import { formatPrice } from "../lib/format";
 import { useList } from "../context/list-context";
+import RemoveProduct from "./RemoveProduct";
 import ProductImage from "./ui/ProductImage";
 import Rating from "./ui/Rating";
 import { CheckIcon, CloseIcon, PlusIcon, ReturnIcon, ShieldIcon, TruckIcon } from "./ui/Icons";
@@ -12,7 +13,7 @@ const PERKS = [
   { icon: ShieldIcon, text: "2-year warranty included" },
 ];
 
-const ProductDetails = ({ id, onClose }) => {
+const ProductDetails = ({ id, onClose, onRemoved }) => {
   const { add, find } = useList();
   const inList = find(id);
 
@@ -71,6 +72,8 @@ const ProductDetails = ({ id, onClose }) => {
               {inList ? <CheckIcon width={18} height={18} /> : <PlusIcon width={18} height={18} />}
               {inList ? `In your list · ${inList.qty} — add another` : "Add to shopping list"}
             </button>
+
+            <RemoveProduct product={product} onRemoved={onRemoved} />
 
             <ul className="mt-8 space-y-3 border-t border-line pt-6 text-sm text-muted">
               {PERKS.map(({ icon: Icon, text }) => (

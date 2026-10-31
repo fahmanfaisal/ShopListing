@@ -93,7 +93,14 @@ export const SparkleIcon = (props) => (
   </svg>
 );
 
-export const SpinnerIcon = ({ className = "", ...props }) => (
+export const TrashIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M4 7h16M10 11v6M14 11v6" />
+    <path d="M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2" />
+  </svg>
+);
+
+export const SpinnerIcon =({ className = "", ...props }) => (
   <svg {...base} {...props} className={`animate-spin ${className}`}>
     <path d="M12 3a9 9 0 109 9" />
   </svg>

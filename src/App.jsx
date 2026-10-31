@@ -14,8 +14,12 @@ import Modal from "./components/ui/Modal";
 function App() {
   const [selectedId, setSelectedId] = useState(null);
   const [panel, setPanel] = useState(null);
+  const [removing, setRemoving] = useState(false);
 
-  const closeDetails = useCallback(() => setSelectedId(null), []);
+  const closeDetails = useCallback(() => {
+    setSelectedId(null);
+    setRemoving(false);
+  }, []);
   const closePanel = useCallback(() => setPanel(null), []);
   const openAdd = () => setPanel("add");
 
@@ -33,8 +37,8 @@ function App() {
         <Footer />
       </div>
 
-      <Modal open={selectedId != null} onClose={closeDetails} label="Product details">
-        <ProductDetails id={selectedId} onClose={closeDetails} />
+      <Modal open={selectedId != null} onClose={closeDetails} leaving={removing} label="Product details">
+        <ProductDetails id={selectedId} onClose={closeDetails} onRemoved={() => setRemoving(true)} />
       </Modal>
 
       <Modal variant="drawer" open={panel === "add"} onClose={closePanel} label="List a product">

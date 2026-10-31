@@ -34,6 +34,11 @@ export default {
           to: { opacity: "1", transform: "none" },
         },
         "slide-in": { from: { transform: "translateX(100%)" }, to: { transform: "none" } },
+        "fade-out": { from: { opacity: "1" }, to: { opacity: "0" } },
+        "scale-out": {
+          from: { opacity: "1", transform: "none" },
+          to: { opacity: "0", transform: "scale(.96) translateY(8px)" },
+        },
       },
       animation: {
         marquee: "marquee 45s linear infinite",
@@ -41,6 +46,8 @@ export default {
         "fade-in": "fade-in .2s ease-out both",
         "scale-in": "scale-in .3s cubic-bezier(.2,.7,.2,1) both",
         "slide-in": "slide-in .4s cubic-bezier(.2,.7,.2,1) both",
+        "fade-out": "fade-out .35s ease-in forwards",
+        "scale-out": "scale-out .35s cubic-bezier(.4,0,1,1) forwards",
       },
     },
   },

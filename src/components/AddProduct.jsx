@@ -117,7 +117,7 @@ const AddProduct = ({ onClose, onCreated }) => {
           </Field>
         </div>
 
-        <Field label="Image URL" htmlFor="thumbnail" hint="Paste any image link — an Unsplash URL works great.">
+        <Field label="Image URL" htmlFor="thumbnail" hint="Paste an image link, or an Unsplash photo page link.">
           <input
             id="thumbnail"
             name="thumbnail"
